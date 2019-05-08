@@ -13,7 +13,7 @@
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
     "cross-env": "^5.2.0",
-    "element-ui": "^2.4.11",
+    "element-ui": "^2.7.2",
     "express": "^4.16.4",
     "node-sass": "^4.12.0",
     "nuxt": "^2.4.0",

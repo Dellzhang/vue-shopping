@@ -27,16 +27,12 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    'element-ui/lib/theme-chalk/index.css'
-  ],
-
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    //'@/plugins/element-ui'
-    {src:'@/plugins/element-ui',ssr: false}
+    // '@/plugins/element-ui'
+    {src:'./plugins/element-ui.js',ssr:true}
   ],
 
   /*
@@ -50,11 +46,15 @@ module.exports = {
   */
   build: {
     transpile: [/^element-ui/],
-
     /*
     ** You can extend webpack config here
     */
     extend(config, ctx) {
     }
-  }
+  },
+  css: [
+    'element-ui/lib/theme-chalk/reset.css',
+    'element-ui/lib/theme-chalk/index.css',
+    './assets/css/main.css'
+  ],
 }

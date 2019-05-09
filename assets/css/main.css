@@ -62,3 +62,23 @@ a{
   height :40px;
   width: 100%;
 }
+.header{
+  background: #fff;
+  box-shadow: 0 2px 27px 0 rgba(0,0,0,.1);
+}
+.btn-search{
+  width: 90px; 
+  background:#13D1BE;
+  border-top-left-radius: 0px;
+  border-bottom-right-radius: 0px; 
+  width:14%;
+  float:right;
+  border:none;
+}
+.btn-search:hover{
+  background:#13D1BE;
+}
+.i-search{
+  color: #fff;
+  font-size:16px
+}

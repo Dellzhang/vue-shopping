@@ -10,7 +10,7 @@
         <div class="wrapper">
           <div class="input-wrapper">
             <input type="text" v-model="inputValue" @blur="SearchInputBlur" @focus="SearchInputFocus"  placeholder="请输入商家或地点" class="input">
-            <button class="el-button el-button-primary btn-search"><i class="el-icon-search i-search"></i></button>
+            <button class="el-button el-button-primary btn-search" style="background:#13D1BEq "><i class="el-icon-search i-search"></i></button>
           </div>
           <div class="host-search">
             <div class="host-search-top" v-if="isTop">
@@ -79,6 +79,7 @@ export default {
 <style lang="scss" scoped>
   .m-searchbar{
     background:#fff;
+    margin-left: 40px;
     .m-logo img{
       width: 126px;
       height: 46px;

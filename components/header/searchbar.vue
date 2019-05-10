@@ -9,54 +9,26 @@
       <el-col :span="15" class="center">
         <div class="wrapper">
           <div class="input-wrapper">
-            <input type="text" placeholder="请输入商家或地点" class="input">
+            <input type="text" v-model="inputValue" @blur="SearchInputBlur" @focus="SearchInputFocus"  placeholder="请输入商家或地点" class="input">
             <button class="el-button el-button-primary btn-search"><i class="el-icon-search i-search"></i></button>
           </div>
           <div class="host-search">
-            <div class="host-search-top hide">
+            <div class="host-search-top" v-if="isTop">
               <h1 class="host-search-title">热门搜索</h1>
               <div class="a-wrapper">
-                <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州市动物园</a>
-                <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州海洋馆</a>
-                <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州方特欢乐世界</a>
-                <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">失恋博物馆</a>
-                <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州园博园</a>
+                <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86" v-for="(item,index) of hostList" :key="index">{{item}}</a>
               </div>
             </div>
-            <div class="host-search-bottom hide">
+            <div class="host-search-bottom" v-if="isBottom">
               <dl>
                 <dd>
-                  <nuxt-link to="/app">火锅</nuxt-link>
+                  <nuxt-link to="/app" v-for="(item,index) of searchList" :key="index">{{item}}</nuxt-link>
                 </dd>
-                <dd>
-                  <nuxt-link to="/app">火锅</nuxt-link>
-                </dd>
-                <dd>
-                  <nuxt-link to="/app">火锅</nuxt-link>
-                </dd>
-                <dd>
-                  <nuxt-link to="/app">火锅</nuxt-link>
-                </dd>
-                <dd>
-                  <nuxt-link to="/app">火锅</nuxt-link>
-                </dd>
-                <dd>
-                  <nuxt-link to="/app">火锅</nuxt-link>
-                </dd>
-                <dd>
-                  <nuxt-link to="/app">火锅</nuxt-link>
-                </dd>
-                
               </dl>
             </div>
           </div>
           <div class="desc">
-            <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州市动物园</a>
-            <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州海洋馆</a>
-            <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州方特欢乐世界</a>
-            <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">失恋博物馆</a>
-            <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州园博园</a>
-            <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86">郑州方特梦幻王国</a>
+            <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86" v-for="(item,index) of descList" :key="index">{{item}}</a>
           </div>
           <div class="desc-nav">
             <nuxt-link to="/app" class="first waimai-link">美团外卖</nuxt-link>
@@ -73,7 +45,34 @@
 </template>
 <script>
 export default {
-    
+  data () {
+    return {
+      isFocus: false,
+      inputValue: '',
+      hostList: ['郑州市动物园','郑州海洋馆','郑州方特欢乐世界','失恋博物馆','郑州园博园'],
+      searchList: ['小吃','汉堡','炸鸡','烤鸭','火锅','火锅','火锅'],
+      descList: ['郑州市动物园','郑州海洋馆','郑州方特欢乐世界','失恋博物馆','郑州园博园','郑州方特梦幻王国'],
+    }
+  },
+  methods: {
+    SearchInputFocus () {
+      this.isFocus = true;
+    },
+    SearchInputBlur () {
+      setTimeout( ()=>{
+        this.isFocus = false
+      },200)
+    }
+
+  },
+  computed: {
+    isTop () {
+      return this.isFocus && !this.inputValue
+    },
+    isBottom () {
+      return this.isFocus && this.inputValue
+    }
+  }
 }
 </script>
 

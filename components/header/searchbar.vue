@@ -2,7 +2,7 @@
   <div class="m-searchbar">
     <el-row class="">
       <el-col :span="5">
-        <nuxt-link to="/app" class="m-logo">
+        <nuxt-link to="/" class="m-logo">
           <img src="//s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png" alt="">
         </nuxt-link>
       </el-col>

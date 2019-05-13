@@ -3,8 +3,7 @@
       <dl class="m-maoyan-dl">
         <dt>猫眼电影</dt>
         <dd v-for="(item,index) of maoyan" :class="kind=== item.type ? `active ${item.type}` : `${item.type}`" @mouseenter="MaoyanMouseEnter" :key="index">{{item.typeName}}</dd>
-        <!-- <dd class="active">正在上映</dd>
-        <dd>即将上映</dd> -->
+        <dd class="right">全部<span class="arrow"></span></dd>
       </dl>
       <div class="m-maoyan-container">
         <div class="block">
@@ -180,6 +179,7 @@ export default {
       border-top-left-radius: 5px;
       background: linear-gradient(to right, rgb(250, 60, 104) 2%, rgb(254, 70, 77) 97%) rgb(250, 60, 104);
       display: flex;
+      position: relative;
       dd{
         width: 56px;
         height: 44px;
@@ -207,6 +207,23 @@ export default {
         }
         &.active::after{
           display: block
+        }
+        &.right{
+          position:absolute;
+          right: 15px;
+        }
+        .arrow {
+          width: 6px;
+          height: 6px;
+          border-bottom: 1px solid #fff;
+          border-right: 1px solid #fff;
+          transform: rotate(-45deg);
+          display: block;
+          position: absolute;
+          right: 13px;
+          top: 0;
+          bottom: 0;
+          margin: auto;
         }
       }
       dt{

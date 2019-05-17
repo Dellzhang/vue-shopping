@@ -22,10 +22,10 @@
             <el-form-item label="邮箱" prop="email">
              <el-input v-model="ruleForm.email"></el-input>
              <el-button size="mini" round @click="sendMsg">发送验证码</el-button>
-            <span class="status">{{ statusMsg }}</span>
+              <span class="status">{{statusMsg}}</span>
             </el-form-item>
             <el-form-item label="验证码" prop="code">
-              <el-input v-model="ruleForm.code" maxlength="4"/>
+              <el-input v-model="ruleForm.code" maxlength="6"/>
             </el-form-item>
             <el-form-item label="密码" prop="pwd">
                <el-input type="password" v-model="ruleForm.pwd"></el-input>
@@ -48,12 +48,14 @@
 </template>
 
 <script>
+import axios from 'axios'
+import CryptoJS from 'crypto-js'
 export default {
   layout: 'blonk',
   data () {
     return {
-      error:'',
-      statusMsg:'',
+      statusMsg: '',
+      error: '',
       ruleForm: {
         name: '',
         email: '',
@@ -102,9 +104,68 @@ export default {
   },
   methods: {
     sendMsg () {
+      let namePass
+      let emailPass
 
+      if (this.timer) {
+        return false
+      }
+      this.$refs['ruleForm'].validateField('name', (valid) => {
+        namePass = valid
+      })
+      if(namePass){
+        return false
+      }
+      this.$refs['ruleForm'].validateField('email', (valid) => {
+        emailPass = valid
+      })
+       const self = this;
+      if(!namePass && !emailPass){
+        axios.post('/user/verify',{
+           email: this.ruleForm.email,
+           name: this.ruleForm.name
+        }).then( (res)=>{
+          // console.log(res.data)
+          if( res.data.error ===0){
+            let count = 60
+            self.statusMsg = `验证码已发送,剩余${count--}秒`
+            self.timer = setInterval( ()=>{
+              self.statusMsg = `验证码已发送,剩余${count--}秒`
+              //  console.log(self.statusMsg,self.timer);
+               if(count === -1){
+                  clearInterval(self.timer)
+                }
+            },1000)
+            
+          }else{
+            self.statusMsg = res.msg
+          }
+        }).catch((error)=>{
+
+        })
+      }
     },
     register () {
+      this.$refs['ruleForm'].validate( (vaild)=>{
+        if(vaild){
+          axios.post('/user/register',{
+            username: this.ruleForm.name,
+            email: this.ruleForm.email,
+            pwd: CryptoJS.MD5(this.ruleForm.pwd).toString(),
+            coded: this.ruleForm.code,
+          }).then( (res) =>{
+            if(res.data.error == 0){
+              alert(res.data.msg);
+              location.href = '/login'
+            }else{
+              this.error = res.data.msg;
+              setTimeout( ()=>{
+                this.error = ''
+              },1500)
+            }
+          })
+        }
+      })
     }
   }
 }
@@ -149,14 +210,23 @@ export default {
     width: 55%;
     margin: 0 auto;
     .myform{
-      width: 360px;
+      width: 392px;
       margin-top: 30px;
     }
     .myform /deep/ .el-input__inner{
       height: 36px;
       line-height: 36px;
       border-radius: 2px;
-      
+    }
+    .myform /deep/ .el-form-item__content {
+      .status{
+        font-size: 12px;
+        margin-left: 20px;
+        color: #e6a23c;
+      }
+      .error{
+        color: red;
+      }
     }
     .myform /deep/ .is-round{
       padding: 3px 40px;

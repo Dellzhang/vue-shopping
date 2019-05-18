@@ -8,11 +8,13 @@ const user = {
   //   })
   // },
   createSession: function(req,res,next){
-
+    // console.log('aaaa')
     if(req.session.user){
       next()
     }else{
       // let cookieId = req.signedCookies['user']
+      // console.log(req.cookies.user)
+      // console.log(req.session.user)
       let cookieid = req.cookies.user
       if(!cookieid){
         return next()

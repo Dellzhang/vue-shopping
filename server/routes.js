@@ -21,3 +21,10 @@ router.get('/user/exit',home.exit)
 //登录
 router.post('/user/login',login.index)
 module.exports = router
+
+
+//忘记密码
+router.post('/user/forget',home.forget)
+
+//修改密码
+router.post('/user/update',home.update)

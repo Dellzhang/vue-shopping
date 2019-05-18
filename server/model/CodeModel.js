@@ -8,6 +8,7 @@ moment.locale('zh-cn');
 
 const codeSchema = mongoose.Schema({
     name:String,
+    email:String,
     coded:Number,
     time:{
         type:Date,

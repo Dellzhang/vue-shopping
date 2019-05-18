@@ -154,6 +154,7 @@ export default {
             pwd: CryptoJS.MD5(this.ruleForm.pwd).toString(),
             coded: this.ruleForm.code,
           }).then( (res) =>{
+            console.log(res)
             if(res.data.error == 0){
               alert(res.data.msg);
               location.href = '/login'

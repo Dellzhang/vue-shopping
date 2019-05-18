@@ -1,15 +1,17 @@
 
 const UserModel = require('../model/UserModel');
-const users = require('../conn/user')
+const users = require('../conn/user');
+const CodeModel = require('../model/CodeModel')
 exports.index = (req,res,next)=>{
-  // console.log(req.body);
+  CodeModel.remove().exec(function(err){
+    if(err){
+      console.log(err)
+    }
+  })
   UserModel.findOne({'username': req.body.username}).then( (user)=>{
     if(user){
       if(user.pwd == req.body.pwd){
-        // users.createCookie(user,res,next)
-        res.cookie('user',user._id,{
-          maxAge: 1000*60*60*24*30
-        })
+        res.cookie('user',user._id)
           return res.json({
               error: 0,
               msg: '登录成功'

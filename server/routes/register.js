@@ -15,8 +15,7 @@ exports.verify = (req,res,next)=>{
 }
 
 exports.index = (req,res,next)=>{
-  console.log(req.body)
-  UserModel.findOne({username:req.body.username}).exec( (err,user)=>{
+  UserModel.findOne({"$or":[{username:req.body.username},{email:req.body.email}]}).exec( (err,user)=>{
     if(user){
        res.json({
         error: 1,
@@ -26,7 +25,7 @@ exports.index = (req,res,next)=>{
       CodeModel.findOne({name:req.body.username}).exec( (err,codeUser)=>{
         if(codeUser){
           if(codeUser.coded == req.body.coded){
-      
+            
              if(codeUser.time_age() > 60){
                res.json({
                  error: 1,

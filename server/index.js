@@ -8,6 +8,7 @@ const db = require('./model/db');
 const router = require('./routes');
 const setting = require('./setting');
 const user = require('./conn/user')
+const UserModel = require('./model/UserModel')
 
 //解析post请求
 const bodyParser = require('body-parser');
@@ -26,7 +27,7 @@ const app = express()
 
 app.use(bodyParser.json());
 app.use( bodyParser.urlencoded({extended:false}) )
-app.use(cookieParser('mt'))
+app.use(cookieParser())
 
 //生成session数据
 app.use(session({
@@ -38,13 +39,23 @@ app.use(session({
   })
 }))
 
-app.use( user.createSession);
-
 app.use(function(req,res,next){
-  
-  res.locals.user = req.session.user;
-  next()
-})
+  var username = req.cookies.user;
+  if(username){
+      UserModel.findOne({'_id':username}).exec(function(err,user){
+        if(!err){
+            req.session.user = user;
+            res.locals.user = req.session.user;
+            next();
+        }
+      })
+
+  }else{
+      res.locals.user = req.session.user;
+      next()
+  }
+});
+
 
 app.use(router);
 

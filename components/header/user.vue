@@ -23,7 +23,9 @@ export default {
     console.log(111)
     axios.get('/user/getUser').then( ({status,data})=>{
       if(status === 200){
-        this.user = data.username
+        console.log(data.username);
+        this.user = data.username;
+        console.log(this.user);
       }
     })
   }

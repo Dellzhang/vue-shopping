@@ -29,9 +29,9 @@ const mail = {
                     'email':data.email,
                     'coded': coded
                 })
-                CodeModel.findOne({'name':data.name}).exec(function(err,use){
+                CodeModel.findOne( { "$or": [{'name':data.name},{'email': data.email}] }).exec(function(err,use){
                     if(use){
-                        CodeModel.updateOne({'name':data.name},{'coded':coded,'time': new Date()}).exec(function(err,a){
+                        CodeModel.updateOne({"$or":[{'name':data.name},{'email':data.email}]},{'coded':coded,'time': new Date()}).exec(function(err,a){
                             if(err){
                                console.log(err)
                             }

@@ -19,15 +19,17 @@ export default {
       user: ''
     }
   },
-  mounted () {
-    console.log(111)
-    axios.get('/user/getUser').then( ({status,data})=>{
-      if(status === 200){
-        console.log(data.username);
-        this.user = data.username;
-        console.log(this.user);
-      }
-    })
+  mounted (){
+    this.getUser()
+  },
+  methods: {
+    getUser(){
+      axios.get('/user/getUser').then( ({status,data})=>{
+        if(status === 200){
+          this.user = data.username;
+        }
+      })
+    }   
   }
 }
 </script>

@@ -1,9 +1,10 @@
 const express = require('express')
-
+const axios =require('axios')
 const router = express.Router();
 const register = require('./routes/register')
 const login = require('./routes/login')
 const home = require('./routes/home')
+const geo = require('./routes/geo')
 //发送验证码
 
 router.post('/user/verify',register.verify);
@@ -28,3 +29,8 @@ router.post('/user/forget',home.forget)
 
 //修改密码
 router.post('/user/update',home.update)
+
+
+
+//有格调列表
+router.get('/get/type/:kind',geo.index)

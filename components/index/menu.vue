@@ -3,7 +3,7 @@
     <div class="nav">
       <dl @mouseleave="DlMouseLeave">
         <dt>全部分类</dt>
-        <dd @mouseenter="DdMouseEnter" v-for="(item,index) of menuList" :key="index">
+        <dd @mouseenter="DdMouseEnter" v-for="(item,index) of this.$store.state.menu.msg.menu" :key="index">
           <i :class="item.type"></i>
           <nuxt-link to="/app">{{item.name}}</nuxt-link>
           <span class="arrow"></span>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -67,12 +68,13 @@ export default {
           title:'热门影院',
           child: ['横店电影城','万达电影城']
         }]
-      }]
+      }],
+      menu: []
     }
   },
   computed: {
     curdetail () {
-      return this.menuList.filter( (item)=> item.type === this.kind)[0]
+      return this.$store.state.menu.msg.menu.filter( (item)=> item.type === this.kind)[0]
     }
   },
   methods: {

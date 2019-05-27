@@ -21,9 +21,12 @@
             <div class="userlogo">
               <img src="http://s0.meituan.net/bs/fe-web-meituan/2d05c2b/img/avatar.jpg" alt="">
             </div>
-            <p>Hi! 你好</p>
-            <nuxt-link to="/login" class="login">登录</nuxt-link>
-            <nuxt-link to="/register" class="login">注册</nuxt-link>
+            <template v-if="!user">
+              <p>Hi! 你好</p>
+              <nuxt-link to="/login" class="login">登录</nuxt-link>
+              <nuxt-link to="/register" class="login">注册</nuxt-link>
+            </template>
+            <h3>{{user}}</h3>
           </div>
         </div>
       </el-col>
@@ -34,14 +37,23 @@
 
 <script>
 import IndexLife from './life'
+import axios from 'axios'
 export default {
   components: {
     IndexLife
   },
   data () {
     return {
-      imgList:['http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg','http://p0.meituan.net/codeman/33ff80dc00f832d697f3e20fc030799560495.jpg','http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg']
+      imgList:['http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg','http://p0.meituan.net/codeman/33ff80dc00f832d697f3e20fc030799560495.jpg','http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg'],
+      user: ''
     }
+  },
+  mounted () {
+    axios.get('/user/getUser').then( ({status,data})=>{
+      if(status === 200){
+        this.user = data.username;
+      }
+    })
   }
 }
 </script>
@@ -116,6 +128,9 @@ export default {
             background: #F6F6F6;
 
           }
+        }
+        h3{
+          text-align: center;
         }
       }
     }

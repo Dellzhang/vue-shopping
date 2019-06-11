@@ -12,12 +12,35 @@
           <el-input type="password" placeholder="密码"  show-password v-model="pwd" class="pwd"></el-input>
           <a href="/forget" class="forget">忘记密码 ?</a>
           <div class="btnWrapper">
-            <el-button type="primary" @click="btnLogin">登录</el-button>
+            <el-button type="primary" @click="btnLogin" v-if="loading">登录</el-button>
+            <el-button type="primary" class="load" disabled v-else>登录中...</el-button>
           </div>
           <p>还没有账号? <nuxt-link to="/register">免费注册</nuxt-link></p>
+          <h3>
+            <span> 用合作网站账号登录</span>
+          </h3>
+          <p class="icon">
+            <i class="iconfont qq">&#xe64d;</i>
+            <i class="iconfont bo">&#xe658;</i>
+          </p>
           <p class="err"> {{error}}</p>
         </div>
       </div>
+    <div class="footer">
+      <ul>
+        <li class="first">关于美团</li>
+        <li>加入我们</li>
+        <li>商家注册</li>
+        <li>帮助中心</li>
+        <li class="last">美团手机版</li>
+      </ul>
+    </div>
+    <p class="bom">
+      <span>©2019</span>
+      <a href="#">美团网团购</a>
+      <span>京ICP证070791号</span>
+      <a href="#">京公网安备11010502025545号</a>
+    </p>
   </div>
 </template>
 
@@ -30,7 +53,8 @@ export default {
     return {
       username: '',
       pwd: '',
-      error: ''
+      error: '',
+      loading: true
     }
   },
   methods: {
@@ -40,12 +64,15 @@ export default {
         pwd: CryptoJS.MD5(this.pwd).toString(),
       }).then( (res) =>{
         if(res.data.error === 0){
-          location.href = '/'
+          this.loading = false
+          setTimeout( ()=>{
+            location.href = '/'
+          },1500)
         }else{
           this.error = res.data.msg
           setInterval( ()=>{
             this.error = ''
-          },1500)
+          },500)
         }
       })
     }
@@ -79,7 +106,7 @@ export default {
     display: flex;
     justify-content: center;
     img{
-      width: 480px;
+      width: 380px;
       height: 370px;
       margin-right: 50px;
     }
@@ -88,8 +115,25 @@ export default {
       p{
         margin-top: 8px;
         color: #666;
+        width: 72%;
         &.err{
           color: red;
+        }
+      }
+      h3{
+        border-bottom: 1px solid #CCC;
+        position: relative;
+        width: 71%;
+        margin: 20px 0px;
+        span{
+          position: absolute;
+          top: -10px;
+          left: 19%;
+          font-size: 14px;
+          font-weight: 400;
+          color: #666;
+          background: #fff;
+          padding: 0px 10px;
         }
       }
       .forget{
@@ -101,7 +145,7 @@ export default {
       }
     }
     .right /deep/ .el-input{
-        width: 72%;
+        width: 70%;
         margin-bottom: 20px;
         border-radius: 2px;
     }
@@ -109,7 +153,7 @@ export default {
       margin: 0px;
     }
     .btnWrapper{
-      width: 72%;
+      width: 70%;
     }
     .btnWrapper /deep/ .el-button{
       color: #fff;
@@ -117,6 +161,57 @@ export default {
       border-color: #008177;
       width: 100%;
       border-radius: 2px;
+      &.load{
+        background: #e5e5e5;
+        border-color: #e5e5e5;
+      }
+    }
+  }
+  .footer{
+    width: 60%;
+    margin: 30px auto 0px;
+    padding: 12px 0px;
+    border-top: 1px solid #E5E5E5;
+    border-bottom: 1px solid #E5E5E5;
+    ul{
+      overflow: hidden;
+      list-style: none;
+      li{
+        float: left;
+        color: #999;
+        font-size: 12px;
+        margin: 5px 0px;
+        padding: 0px 16px;
+        border-right: 1px solid #E5E5E5;
+        cursor: pointer;
+        &.first{
+          padding-left: 0px;
+        }
+        &.last{
+          border: none;
+        }
+      }
+    }
+  }
+  .bom{
+    width: 60%;
+    margin: 15px auto 20px;
+    color: #999;
+    a{
+      color: #999;
+      text-decoration-color: #999;
+      margin-left: 3px;
+    }
+  }
+  .icon{
+    text-align: center;
+    margin-top: 20px;
+    .qq{
+      color: #74BBE8;
+      margin-right: 10px;
+    }
+    .bo{
+      color: #FF978C;
     }
   }
 </style>

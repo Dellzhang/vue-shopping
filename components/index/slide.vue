@@ -26,7 +26,31 @@
               <nuxt-link to="/login" class="login">登录</nuxt-link>
               <nuxt-link to="/register" class="login">注册</nuxt-link>
             </template>
-            <h3>{{user}}</h3>
+            <template v-else>
+              <h3>{{user}}</h3>
+              <div class="icon-list">
+                <div class="icon-item">
+                  <i class="iconfont">&#xe63a;</i>
+                  <p>我的订单</p>
+                </div>
+                <div class="icon-item">
+                  <i class="el-icon-star-on"></i>
+                  <p>我的订单</p>
+                </div>
+                <div class="icon-item">
+                  <i class="iconfont">&#xe620;</i>
+                  <p>优惠券</p>
+                </div>
+                <div class="icon-item">
+                  <i class="iconfont">&#xe602;</i>
+                  <p>余额宝</p>
+                </div>
+                <div class="icon-item">
+                  <i class="iconfont">&#xe637;</i>
+                  <p>更多</p>
+                </div>
+                </div>
+            </template>
           </div>
         </div>
       </el-col>
@@ -38,13 +62,13 @@
 <script>
 import IndexLife from './life'
 import axios from 'axios'
+import {mapState} from 'vuex'
 export default {
   components: {
     IndexLife
   },
   data () {
     return {
-      imgList:['http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg','http://p0.meituan.net/codeman/33ff80dc00f832d697f3e20fc030799560495.jpg','http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg'],
       user: ''
     }
   },
@@ -54,6 +78,9 @@ export default {
         this.user = data.username;
       }
     })
+  },
+  computed: {
+    ...mapState(['imgList'])
   }
 }
 </script>
@@ -131,6 +158,25 @@ export default {
         }
         h3{
           text-align: center;
+        }
+        .icon-list{
+          display: flex;
+          flex-wrap:wrap;
+          padding: 0px 15px;
+          .icon-item{
+            width: 33%;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            p{
+              color: #222;
+              font-size: 12px;
+            }
+            i{
+              font-size: 20px;
+              color: #96E4DA;
+            }
+          }
         }
       }
     }

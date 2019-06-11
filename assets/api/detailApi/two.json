@@ -1,0 +1,13 @@
+{
+  "data": {
+    "dealid": "55293757",
+    "imgUrl": "http://p0.meituan.net/w.h/deal/63a4cea537ed44a8746a9a35694848c971675.jpg@0_22_720_436a%7C388h_640w_2e_90Q",
+    "menu": [[{"total":"45","images":["http://p0.meituan.net/dealwatera/0b3fbb5ddb0448bfa3a9f9bc5210ac8856345.jpg@468h_702w_2e_90Q"],"price":"45","specification":"1 份","type":"128","content":"牛肉砂锅","desc":""},{"total":"39","images":["http://p0.meituan.net/dealwatera/2908861d7a63516c37abbc2ac26f203772206.jpg@468h_702w_2e_90Q"],"price":"39","specification":"1 份","type":"128","content":"鸡肉咖喱焗饭","desc":""},{"total":"45","images":["http://p1.meituan.net/dealwatera/9aa6561e2efb7b10674403f7f10995ee45632.jpg@468h_702w_2e_90Q"],"price":"45","specification":"1 份","type":"128","content":"海鲜芝士年糕","desc":""},{"total":"32","images":["http://p1.meituan.net/dealwatera/4fd3cb26ca92dc147036cb514c65952234470.jpg@468h_702w_2e_90Q"],"price":"16","specification":"2 杯","type":"128","content":"果茶/热饮任选","desc":""}]],
+    "desc": {"type":"0","content":"10:00-22:00,全国分店营业时间不统一，个别店面营业时间偏长，为保证您的用餐，请详细咨询各个分店店面具体营业时间","notDishes":"true"},
+    "price": "128",
+    "recommend": ["http://p0.meituan.net/w.h/deal/63a4cea537ed44a8746a9a35694848c971675.jpg@0_22_720_436a%7C388h_640w_2e_90Q","http://p0.meituan.net/w.h/deal/0b3fbb5ddb0448bfa3a9f9bc5210ac8856345.jpg@0_22_720_436a%7C388h_640w_2e_90Q","http://p0.meituan.net/w.h/deal/2908861d7a63516c37abbc2ac26f203772206.jpg@0_22_720_436a%7C388h_640w_2e_90Q","http://p1.meituan.net/w.h/deal/9aa6561e2efb7b10674403f7f10995ee45632.jpg@0_22_720_436a%7C388h_640w_2e_90Q"],
+    "terms": [{"title":"有效期","content":["2019.1.18 至 2019.6.17（周末、法定节假日通用）"]},{"title":"使用时间","content":["10:00-22:00,10:00-22:00,全国分店营业时间不统一，个别店面营业时间偏长，为保证您的用餐，请详细咨询各个分店店面具体营业时间"]},{"title":"使用规则","content":["无需预约，消费高峰期可能需要等位","商家提供免费WiFi\n停车位收费标准：详询各店面","不提供餐巾纸","团购用户不可同时享受商家其他优惠\n酒水饮料等问题，请致电商家咨询，以商家反馈为准\n如部分菜品因时令或其他不可抗因素导致无法提供，商家会用等价菜品替换，具体事宜请与商家协商","店内无包间","每张美团券建议2人使用","堂食外带均可，可以打包，打包费详情请咨询商家"]}],
+    "title": "双人餐B，提供免费WiFi",
+    "value": "161"
+  }
+}

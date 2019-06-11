@@ -26,50 +26,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      kind: '',
-      menuList: [{
-        type: 'food',
-        name: '美食',
-        child: [{
-          title: '美食',
-          child: ['代金券','甜点饮品','火锅','自助餐','小吃快餐']
-        }]
-      },{
-        type: 'takeout',
-        name: '外卖',
-        child: [{
-          title: '外卖',
-          child: ['美团外卖']
-        }]
-      },{
-        type: 'hotel',
-        name: '酒店',
-        child: [{
-          title: '酒店星级',
-          child: ['经济型','舒适/三星','高档/四星','豪华/五星']
-        }]
-      },{
-        type: 'homestay',
-        name: '榛果民宿',
-        child: [{
-          title:'热门城市',
-          child:['上海','北京','郑州','杭州','天津','武汉','成都']
-        },{
-          title:'热门房源',
-          child: ['复式loty','别墅']
-        }]
-      },{
-        type: 'movie',
-        name: '猫眼电影',
-        child: [{
-          title: '热映电影',
-          child: ['大侦探皮卡丘','复仇者联盟4：终局之战','何以为家','一个母亲的复仇']
-        },{
-          title:'热门影院',
-          child: ['横店电影城','万达电影城']
-        }]
-      }],
-      menu: []
+      kind: ''
     }
   },
   computed: {
@@ -299,7 +256,9 @@ export default {
           margin-bottom: 15px;
           display: inline-block;
           margin-right: 3px;
-
+          &:hover{
+            color: #13D1BE;
+          }
         }
       }
     }

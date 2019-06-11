@@ -1,0 +1,13 @@
+{
+  "data": {
+    "dealid": "55293808",
+    "imgUrl": "http://p0.meituan.net/w.h/deal/2b793e5966c98c00d1942a6354f9c15f72848.jpg@0_22_720_436a%7C388h_640w_2e_90Q",
+    "menu": [[{"total":"58","images":["http://p1.meituan.net/dealwatera/f1e4ef444bfbd5e87035aa015362db7f47375.jpg@468h_702w_2e_90Q"],"price":"58","specification":"1 份","type":"128","content":"和牛仔粒拌饭","desc":""},{"total":"32","images":["http://p0.meituan.net/dealwatera/0f836da88a857e7c677ff0d8e46d696753248.jpg@468h_702w_2e_90Q"],"price":"32","specification":"1 份","type":"128","content":"泡菜乌冬面","desc":""},{"total":"25","images":["http://p0.meituan.net/dealwatera/8df7a2a64d5fb5efd0e1ba327699fc3636386.jpg@468h_702w_2e_90Q"],"price":"25","specification":"1 份","type":"128","content":"北纬45°南瓜粥","desc":""},{"total":"32","images":["http://p0.meituan.net/dealwatera/4e5ea56e55feb9a2c7e0434454ebc52960302.jpg@468h_702w_2e_90Q"],"price":"32","specification":"1 份","type":"128","content":"人气组合","desc":""},{"total":"35","images":["http://p1.meituan.net/dealwatera/13173ac22b21427efa277466e6fd853150334.jpg@468h_702w_2e_90Q"],"price":"35","specification":"1 份","type":"128","content":"韩味辣炒糕条","desc":""}]],
+    "desc": {"type":"0","content":"10:00-22:00,全国分店营业时间不统一，个别店面营业时间偏长，为保证您的用餐，请详细咨询各个分店店面具体营业时间","notDishes":"true"},
+    "price": "148",
+    "recommend": ["http://p0.meituan.net/w.h/deal/2b793e5966c98c00d1942a6354f9c15f72848.jpg@0_22_720_436a%7C388h_640w_2e_90Q","http://p0.meituan.net/w.h/deal/8df7a2a64d5fb5efd0e1ba327699fc3636386.jpg@0_22_720_436a%7C388h_640w_2e_90Q","http://p0.meituan.net/w.h/deal/0f836da88a857e7c677ff0d8e46d696753248.jpg@0_22_720_436a%7C388h_640w_2e_90Q","http://p1.meituan.net/w.h/deal/f1e4ef444bfbd5e87035aa015362db7f47375.jpg@0_22_720_436a%7C388h_640w_2e_90Q","http://p1.meituan.net/w.h/deal/13173ac22b21427efa277466e6fd853150334.jpg@0_22_720_436a%7C388h_640w_2e_90Q"],
+    "terms": [{"title":"有效期","content":["2019.1.18 至 2019.6.17"]},{"title":"不可用日期","content":["土大力烤肉名家（大卫城店） 2019年 3月5日-3月12日"]},{"title":"使用时间","content":["10:00-22:00,10:00-22:00,全国分店营业时间不统一，个别店面营业时间偏长，为保证您的用餐，请详细咨询各个分店店面具体营业时间"]},{"title":"使用规则","content":["无需预约，消费高峰期可能需要等位","商家提供免费WiFi\n停车位收费标准：详询各店面","不提供餐巾纸","团购用户不可同时享受商家其他优惠\n酒水饮料等问题，请致电商家咨询，以商家反馈为准\n如部分菜品因时令或其他不可抗因素导致无法提供，商家会用等价菜品替换，具体事宜请与商家协商","店内无包间","每张美团券建议2人使用","堂食外带均可，可以打包，打包费详情请咨询商家"]}],
+    "title": "双人餐C，提供免费WiFi",
+    "value": "182"
+  }
+}

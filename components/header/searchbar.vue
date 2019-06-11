@@ -1,12 +1,19 @@
 <template>
   <div class="m-searchbar">
-    <el-row class="">
-      <el-col :span="5">
-        <nuxt-link to="/" class="m-logo">
+    <el-row :gutter="40">
+      <el-col :span="6" class="left" style="padding: 0px">
+        <a href="/" class="m-logo">
           <img src="//s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png" alt="">
-        </nuxt-link>
+        </a>
+        <span v-if="!isPath" class="txt">美食</span>
+        <div v-if="!isPath" class="down" @mouseenter="EnterClick">
+          <span>全部分类 <i class="el-icon-arrow-down"></i></span>
+          <ul :class="bol ? '' : 'active'" @mouseleave="leaveClick">
+            <li v-for="(item,ins) of menu" :key="ins">{{item.name}}</li>
+          </ul>
+        </div>
       </el-col>
-      <el-col :span="15" class="center">
+      <el-col :span="14" class="center">
         <div class="wrapper">
           <div class="input-wrapper">
             <input type="text" v-model="inputValue" @blur="SearchInputBlur" @focus="SearchInputFocus"  placeholder="请输入商家或地点" class="input">
@@ -22,7 +29,7 @@
             <div class="host-search-bottom" v-if="isBottom">
               <dl>
                 <dd>
-                  <nuxt-link to="/app" v-for="(item,index) of searchList" :key="index">{{item}}</nuxt-link>
+                  <nuxt-link to="/search" v-for="(item,index) of searchList" :key="index">{{item}}</nuxt-link>
                 </dd>
               </dl>
             </div>
@@ -30,7 +37,7 @@
           <div class="desc">
             <a href="https://www.meituan.com/s/%E9%83%91%E5%B7%9E%E6%B5%B7%E6%B4%8B%E9%A6%86" v-for="(item,index) of descList" :key="index">{{item}}</a>
           </div>
-          <div class="desc-nav">
+          <div class="desc-nav" v-if="isPath" >
             <nuxt-link to="/app" class="first waimai-link">美团外卖</nuxt-link>
             <nuxt-link to="/app" class="maoyan-link">猫眼电影</nuxt-link>
             <nuxt-link to="/app" class="meituan-link">美团酒店</nuxt-link>
@@ -44,14 +51,17 @@
   </div>
 </template>
 <script>
+import menu from '../../assets/api/menu.json'
 export default {
   data () {
     return {
       isFocus: false,
       inputValue: '',
       hostList: ['郑州市动物园','郑州海洋馆','郑州方特欢乐世界','失恋博物馆','郑州园博园'],
-      searchList: ['小吃','汉堡','炸鸡','烤鸭','火锅','火锅','火锅'],
+      searchList: ['土大力拌饭名家（王府井店）','汉堡','炸鸡','烤鸭','火锅','火锅','火锅'],
       descList: ['郑州市动物园','郑州海洋馆','郑州方特欢乐世界','失恋博物馆','郑州园博园','郑州方特梦幻王国'],
+      menu: menu.menu,
+      bol: false
     }
   },
   methods: {
@@ -62,6 +72,12 @@ export default {
       setTimeout( ()=>{
         this.isFocus = false
       },200)
+    },
+    EnterClick () {
+      this.bol = true
+    },
+    leaveClick () {
+       this.bol = false
     }
 
   },
@@ -71,6 +87,10 @@ export default {
     },
     isBottom () {
       return this.isFocus && this.inputValue
+    },
+    isPath(){
+      console.log(this.$route.path === '/' || this.$route.path === '/ChangeCity')
+      return this.$route.path === '/' || this.$route.path === '/ChangeCity'
     }
   }
 }
@@ -80,10 +100,56 @@ export default {
   .m-searchbar{
     background:#fff;
     margin-left: 40px;
+    .left{
+      display: flex;
+      align-items: center;
+    }
     .m-logo img{
       width: 126px;
       height: 46px;
     }
+    .txt{
+      margin-left: 12px;
+      color: #222;
+      font-size: 16px;
+    }
+     .down{
+      height: 20px;
+      margin-left: 20px;
+      border: 1px solid #e5e5e5;
+      color: #999;
+      padding: 3px 2px 3px 4px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 12px;
+      display: inline-block;
+      position: relative;
+      ul{
+        list-style: none;
+        position: absolute;
+        border: 1px solid #e5e5e5;
+        top:22px;
+        left: 0px;
+        background: #fff;
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,.1);
+        z-index: 40;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+        padding: 15px 40px 12px 10px;
+        width: 184px;
+        box-sizing: border-box;
+        &.active{
+          display: none;
+        }
+        li{
+          line-height: 24px;
+          &:hover{
+            color: #13D1BE;
+          }
+        }
+
+      }
+     }
     .center{
       position: relative;
       .input-wrapper{
@@ -151,7 +217,7 @@ export default {
         background:#fff;
         position: absolute;
         z-index: 88;
-        border:1px solid #e5e5e5;
+        // border:1px solid #e5e5e5;
         box-sizing: border-box;
         box-shadow: 0px 3px 5px 0px rgba(0,0,0,.1);
         border-top: none;

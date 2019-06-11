@@ -2,25 +2,42 @@
     <div class="m-maoyan">
       <dl class="m-maoyan-dl">
         <dt>猫眼电影</dt>
-        <dd v-for="(item,index) of maoyan" :class="kind=== item.type ? `active ${item.type}` : `${item.type}`" @mouseenter="MaoyanMouseEnter" :key="index">{{item.typeName}}</dd>
+        <!-- <dd v-for="(item,index) of maoyan" :class="kind=== item.type ? `active ${item.type}` : `${item.type}`" @mouseenter="MaoyanMouseEnter" :key="index">{{item.typeName}}</dd> -->
+        <dd :class="kind=== 'being' ? `active being` : `being`"  @mouseenter="MaoyanMouseEnter">正在热映</dd>
+        <dd  :class="kind=== 'jiang' ? `active jiang` : `jiang`"  @mouseenter="MaoyanMouseEnter">即将上映</dd>
         <dd class="right">全部<span class="arrow"></span></dd>
       </dl>
       <div class="m-maoyan-container">
         <div class="block">
-          <el-carousel :autoplay="false" :loop="true">
-            <el-carousel-item v-for="(item,index) in MaoyanList.maoyanlist" :key="index">
+          <el-carousel v-if=" kind === 'being'"  :autoplay="false" :loop="true">
+            <el-carousel-item v-for="(item,index) in Hotlist" :key="index">
               <ul>
                 <li v-for="maoyan of item" :key="maoyan.name">
                   <div class="maoyan-list">
-                    <img :src="maoyan.imgurl" alt="">
+                    <img :src="maoyan.img | maoImg" alt="">
                     <div class="maoyan-desc">
-                      <p> <b>观众评</b> <span>{{maoyan.ping}}</span></p>
-                      <p class="desc-p">{{maoyan.name}}</p>
+                      <p> <b>观众评</b> <span>{{maoyan.mk}}</span></p>
+                      <p class="desc-p">{{maoyan.nm}}</p>
                       <span class="btn">购票</span>
                     </div>
                   </div>
                 </li>
-                
+              </ul>
+            </el-carousel-item>
+          </el-carousel>
+          <el-carousel v-else  :autoplay="false" :loop="true">
+            <el-carousel-item v-for="(item,index) in Cominglist" :key="index">
+              <ul>
+                <li v-for="maoyan of item" :key="maoyan.name">
+                  <div class="maoyan-list">
+                    <img :src="maoyan.img | maoImg" alt="">
+                    <div class="maoyan-desc">
+                      <p><span>{{maoyan.wish}}</span><b>人想看</b></p>
+                      <p class="desc-p">{{maoyan.nm}}</p>
+                      <span class="btn">预购</span>
+                    </div>
+                  </div>
+                </li>
               </ul>
             </el-carousel-item>
           </el-carousel>
@@ -30,133 +47,16 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+import maoImg from '@/assets/api/maoyan'
 export default {
     data () {
       return {
-        kind: 'being',
-        maoyan:[{
-          type: 'being',
-          typeName: '正在上映',
-          maoyanlist:[
-          [{
-            imgurl: 'http://p1.meituan.net/movie/f29c0f9ff0340d00085f4bc1a395ecf02603950.jpg@214w_297h_1e_1c',
-            ping: '8.6',
-            name:'大侦探皮卡丘',
-            btn: '购票'
-          },{
-            imgurl: 'http://p0.meituan.net/moviemachine/f7d2ad70eb79d6d9b8a197713db9b8c41711752.jpg@214w_297h_1e_1c',
-            ping: '9.1',
-            name:'复仇者联盟4',
-            btn: '购票'
-          },{
-            imgurl: '//p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@214w_297h_1e_1c',
-            ping: '9.4',
-            name:'何以为家',
-            btn: '购票'
-          },{
-            imgurl: '//p1.meituan.net/movie/d5bb2989f36ecd73543a095f62f878eb883035.jpg@214w_297h_1e_1c',
-            ping: '9.3',
-            name:'一个母亲的复仇',
-            btn: '购票'
-          },{
-            imgurl: '//p1.meituan.net/movie/b76f37b5e3484b6837f75ef7b5bf46452066459.jpg@214w_297h_1e_1c',
-            ping: '6.8',
-            name:'一条狗的使命2',
-            btn: '购票'
-          }],
-          [{
-            imgurl: '//p1.meituan.net/moviemachine/07e846797e2c886084d4377822036e1a1464615.jpg@214w_297h_1e_1c',
-            ping: '8.0',
-            name:'双生',
-            btn: '预售'
-          },{
-            imgurl: '//p0.meituan.net/movie/71fba05fbe4912cb70d27b87c3c856393364925.jpg@214w_297h_1e_1c',
-            ping: '9.6',
-            name:'哥斯拉2：怪兽之王',
-            btn: '预售'
-          },{
-            imgurl: '//p1.meituan.net/moviemachine/409aca94fa1695a6bdb5206735189c11495127.jpg@214w_297h_1e_1c',
-            ping: '4.3',
-            name:'下一任：前任',
-             btn: '购票'
-          },{
-            imgurl: '//p0.meituan.net/movie/35cd439c836bf2281bbd1e8eaeb8fdea3999459.jpg@214w_297h_1e_1c',
-            ping: '9.6',
-            name:'进京城',
-             btn: '购票'
-          },{
-            imgurl: '//p1.meituan.net/movie/add2ab162d018ceb1351e6e8e465d92f650170.jpg@214w_297h_1e_1c',
-            ping: '9.6',
-            name:'龙珠超：布罗利',
-             btn: '预售'
-          }]
-        ]
-
-        },{
-          type:'coming',
-          typeName: '即将上映',
-          maoyanlist:[
-            [{
-              imgurl: '//p0.meituan.net/movie/f540050eee0371a5720f86da572d0d136138553.jpg@214w_297h_1e_1c',
-              ping: '8.6',
-              name:'周恩来回延安',
-              btn: '预售'
-            },{
-              imgurl: '//p1.meituan.net/movie/f2a32a5369a76ee11ee37947a0003254629750.jpg@214w_297h_1e_1c',
-              ping: '9.1',
-              name:'海蒂和爷爷',
-              btn: '预售'
-            },{
-              imgurl: '//p1.meituan.net/movie/b76f37b5e3484b6837f75ef7b5bf46452066459.jpg@214w_297h_1e_1c',
-              ping: '9.4',
-              name:'何以为家',
-              btn: '预售'
-            },{
-              imgurl: '//p1.meituan.net/movie/d5bb2989f36ecd73543a095f62f878eb883035.jpg@214w_297h_1e_1c',
-              ping: '9.3',
-              name:'一条狗的使命2',
-              btn: '预售'
-            },{
-              imgurl: '//p1.meituan.net/movie/47e4fec55c1a31733026e5c138a3132a502726.jpg@214w_297h_1e_1c',
-              ping: '6.8',
-              name:'企鹅公路',
-              btn: '预售'
-            }],
-            [{
-              imgurl: '//p1.meituan.net/moviemachine/07e846797e2c886084d4377822036e1a1464615.jpg@214w_297h_1e_1c',
-              ping: '8.0',
-              name:'双生',
-              btn: '预售'
-            },{
-              imgurl: '//p0.meituan.net/movie/71fba05fbe4912cb70d27b87c3c856393364925.jpg@214w_297h_1e_1c',
-              ping: '9.6',
-              name:'哥斯拉2：怪兽之王',
-              btn: '预售'
-            },{
-              imgurl: '//p1.meituan.net/movie/324cf409a83a43bd2f598d42fbde817c11773561.jpg@214w_297h_1e_1c',
-              ping: '4.3',
-              name:'致命梦魇',
-              btn: '预售'
-            },{
-              imgurl: '//p0.meituan.net/movie/35cd439c836bf2281bbd1e8eaeb8fdea3999459.jpg@214w_297h_1e_1c',
-              ping: '9.6',
-              name:'进京城',
-             btn: '预售'
-            },{
-              imgurl: '//p1.meituan.net/movie/add2ab162d018ceb1351e6e8e465d92f650170.jpg@214w_297h_1e_1c',
-              ping: '9.6',
-              name:'龙珠超：布罗利',
-             btn: '预售'
-            }]
-          ]
-        }]
-        
+        kind: 'being'
       }
     },
     computed: {
-      MaoyanList () {
-         return this.maoyan.filter( (item) => item.type === this.kind)[0]
-      }
+      ...mapState(['Hotlist','Cominglist'])
     },
     methods: {
       MaoyanMouseEnter (e) {
@@ -267,16 +167,17 @@ export default {
              img{
               border-radius: 4px;
               filter: blur(0.3px); 
-              
              }
             .maoyan-desc{
               position: absolute;
               bottom: 10px;
               margin-left: 15px;
               z-index: 22;
+              background-image: linear-gradient(-180deg,rgba(0,0,0,0) 0,rgba(29,45,55,.8) 99%);
               b{
                 font-size: 12px;
                 color: #666;
+                color: #fff;
               }
               p{
                 line-height: 18px;

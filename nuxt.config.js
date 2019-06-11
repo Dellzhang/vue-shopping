@@ -42,18 +42,22 @@ module.exports = {
     '@nuxtjs/proxy',
     '@nuxtjs/axios',
   ],
-  axios: {
-    proxy: true,
-  },
-  proxy: {
-    '/api': { 
-      target: 'http://localhost:4000',
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api': '',
-      }    
-    }
-  },
+  proxy: [
+    [
+      '/api', 
+      { 
+        target: 'https://www.meituan.com', // api主机
+        pathRewrite: { '^/api' : '/' }
+      }
+    ],
+    [
+      '/shopapi', 
+      { 
+        target: 'http://localhost:3000', // api主机
+        pathRewrite: { '^/shopapi' : '/assets/api/detailApi' }
+      }
+    ]
+  ],
 
   /*
   ** Build configuration
@@ -69,6 +73,7 @@ module.exports = {
   css: [
     'element-ui/lib/theme-chalk/reset.css',
     'element-ui/lib/theme-chalk/index.css',
-    './assets/css/main.css'
+    './assets/css/main.css',
+    './assets/css/iconfont.css'
   ],
 }

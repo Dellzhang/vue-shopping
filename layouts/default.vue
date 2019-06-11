@@ -3,7 +3,7 @@
   <div class="header">
     <div class="bac">
       <el-header style="height: 40px">
-          <my-header/>
+        <my-header/>
       </el-header>
     </div>
   </div>

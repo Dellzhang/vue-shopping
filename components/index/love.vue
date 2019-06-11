@@ -1,36 +1,33 @@
 <template>
   <div class="m-artistic">
     <dl class="m-artistic-dl">
-      <dt>有格调</dt>
-      <dd :kind="item.tab" :class="kind === item.tab ? `active ${item.tab}`: `${item.tab}` " v-for="(item,index) of all.tabs" :key="index" @mouseenter="ArtisticDdMouseEnter">{{item.text}}</dd>
+      <dt>猜你喜欢</dt>
+      <dd class="active">为你甄选最合适的</dd>
     </dl>
     <div class="m-artistic-particulars" >
       <ul class="list">
-        <li v-for="(itm,index) of all.data" :key="index">
-          <nuxt-link :to=" '/meishi/' +itm.id.split('_')[1]" tag="div">
-            <el-card>
-              <div class="imgWrapper">
-                <img :src="itm.imgUrl | imgCale" alt="" v-if=" (kind !== 'spa') && (kind !== 'show')"/>
-                <img :src="itm.imgUrl" alt="" v-else />
-              </div>
-              <ul>
-                <li class="title">{{itm.title}}</li>
-                <li class="desc" v-if="itm.subTitle">{{itm.subTitle}}</li>
-                <li v-if="itm.tags" class="tags">
-                  <span class="tag" v-for="(tag,ins) of itm.tags.slice(0,3)" :key="ins">{{tag.tag}}</span>
-                </li>
-                <li :class=" kind === 'spa' ? '' : 'price' ">
-                  <span class="price-symbol" v-if="kind !== 'spa'">￥</span>
-                  <span v-if="itm.currentPrice && kind !== 'spa'">
-                    {{itm.currentPrice}}
-                    <small v-if="kind === 'show' || kind=== 'journey'">{{'/'+itm.priceType}}</small>
-                  </span>
-                  <s class="small">{{itm.oldPrice}}</s>
-                  <span class="right">{{itm.bottomInfo}}</span>
-                </li>
-              </ul>
-              </el-card>
-          </nuxt-link>
+        <li v-for="(itm,index) of Recommend " :key="index">
+          <el-card>
+            <div class="imgWrapper">
+              <img :src="itm.imgUrl | recommCale" alt="" />
+            </div>
+            <ul>
+              <li class="title">{{itm.title}}</li>
+              <li class="desc">{{itm.areaName}}</li>
+              <li>
+                <i class="el-icon-star-on" :class=" Math.floor(itm.score) > index ? 'icon-active': 'icon'" v-for="(icon,index) of 5" :key="index"></i>
+                <span class="pin">{{itm.commentNum}}个评价</span>
+              </li>
+              <li class="price">
+                <span class="price-symbol">￥</span>
+                <span>
+                  {{itm.avgPrice}}
+                </span>
+                <small class="small">起</small>
+                <span class="right">{{itm.bottomInfo}}</span>
+              </li>
+            </ul>
+          </el-card>
         </li>
       </ul>
     </div>
@@ -39,7 +36,7 @@
 
 <script>
 import axios from 'axios'
-import imgCale from '@/assets/api/imgCale'
+import recommCale from '@/assets/api/recommCale'
 import { mapState, mapMutations } from 'vuex'
 export default {
   data () {
@@ -48,34 +45,22 @@ export default {
     }
   },
   computed: {
-    ...mapState(['all'])
+    ...mapState(['Recommend'])
   },
-  methods: {
-    async ArtisticDdMouseEnter (e) {
-      if(e.target.className.split(' ').length>1){
-         this.kind = e.target.className.split(' ')[1];
-      }else{
-         this.kind = e.target.className.split(' ')[0];
-      }
-      let kind = e.target.getAttribute('kind')
-      let result = await axios.get('/get/type/'+ kind)
-      this.$store.dispatch('setShow',result.data.data)
-    },
-  }
 }
 </script>
 
 <style lang="scss" scoped>
   .m-artistic{
+    margin-top: 40px;
     .m-artistic-dl{
-      background-color: rgb(190, 164, 116); 
-      background-image: linear-gradient(to right, rgb(194, 176, 142) 3%, rgb(190, 164, 116) 100%);
+      background: linear-gradient(to right, rgb(18, 210, 198) 2%, rgb(14, 190, 212) 97%) rgb(18, 210, 198);
       overflow: hidden;
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
       dd{
         float: left;
-        width: 56px;
+        width: 115px;
         height: 44px;
         line-height: 44px;
         text-align: center;
@@ -89,7 +74,7 @@ export default {
           border-left: 5px solid transparent;
           border-right: 5px solid transparent;
           border-bottom: 7px solid #fff;
-          content: "";
+          content: " ";
           display: block;
           width: 2px;
           height: 0;
@@ -105,7 +90,7 @@ export default {
       }
       dt{
         float: left;
-        width: 55px;
+        width: 73px;
         height: 44px;
         font-size: 18px;
         margin-left: 10px;
@@ -113,8 +98,7 @@ export default {
         text-align: center;
         color: #fff;
         padding: 0 5px;
-          line-height: 44px;
-          font-family: MFShangHei-Regular!important;
+        line-height: 44px;
       }
     }
     .m-artistic-particulars{
@@ -140,18 +124,20 @@ export default {
       cursor: pointer;
       background: #fff;
       transition: background-color 0.5s;
-      width: 388px;
-      height: 377px;
+      width: 19.5%;
       &:hover{
         background: #f4f4f4;
       }
       
     }
     .list > li:nth-child(1){
-      margin-left: 7px;
+      margin-left: 12px;
     }
-    .list > li:nth-child(4){
-      margin-left: 7px;
+    .list > li:nth-child(6){
+      margin-left: 12px;
+    }
+    .list > li:nth-child(11){
+      margin-left: 12px;
     }
     .m-artistic-particulars /deep/ .el-card__body{
       padding: 10px;
@@ -171,6 +157,9 @@ export default {
           font-weight: 500;
           height: 22px;
           line-height: 22px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         &.desc{
           font-size: 12px;
@@ -181,16 +170,17 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
         }
-      }
-      .imgWrapper{
-        background: url(//p0.meituan.net/codeman/ae846a35c5f42565206c3c7b47be3a5310601.png) 50% 50%;
-        background-size: cover;
-        max-width: 100%;
+        .icon-active{
+          color: #FF9900;
+        }
+        .icon{
+          color: #C3C3C3;
+        }
       }
       img{
         border-radius: 4px;
-        width: 368px;
-        height: 268px;
+        width: 214px;
+        height: 120px;
       }
     }
     .m-artistic-particulars /deep/ .is-always-shadow{
@@ -202,17 +192,6 @@ export default {
         color: #BE9E4D;
         margin-right: 6px;
         cursor: pointer;
-        .small{
-          font-size: 12px;
-          color: #999;
-        }
-      }
-      .right{
-        float: right;
-        font-size: 12px;
-        color: #999;
-        margin-top: 4px;
-        margin-right: 25px;
       }
       .price-symbol{
         font-size: 14px;
@@ -220,30 +199,13 @@ export default {
         font-weight: 500;
         margin-right: -8px;
       }
-      li{
-        &.tags{
-          height: 21px;
-          padding-right: 40px;
-          box-sizing: border-box;
-        }
-      }
-      .tag{
-        text-align: center;
-        border: 1px solid #d8d8d8;
-        border-radius: 2px;
-        margin-right: 10px;
-        margin-bottom: 5px;
-        padding: 0 3px;
+      .pin{
         font-size: 12px;
         color: #999;
-      }
-      small{
-        margin-left: -3px;
+        margin-left: 5px;
       }
     }
 
   }
   
 </style>
-
-

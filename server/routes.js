@@ -5,6 +5,7 @@ const register = require('./routes/register')
 const login = require('./routes/login')
 const home = require('./routes/home')
 const geo = require('./routes/geo')
+const shop = require('./routes/shop')
 //发送验证码
 
 router.post('/user/verify',register.verify);
@@ -34,3 +35,13 @@ router.post('/user/update',home.update)
 
 //有格调列表
 router.get('/get/type/:kind',geo.index)
+
+
+// 狠优惠类别
+router.get('/get/cheap/:kind',geo.cheap)
+
+// 存储商品
+router.post('/gou/shop',shop.index)
+
+// 主页显示商品
+router.get('/gou/getshop/:dealid',shop.getshop)

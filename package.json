@@ -21,7 +21,7 @@
     "element-ui": "^2.7.2",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "moment": "^2.24.0",
     "mongoose": "^5.5.8",
     "node-sass": "^4.12.0",

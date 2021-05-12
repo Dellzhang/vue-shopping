@@ -25,7 +25,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.5.8",
     "node-sass": "^4.12.0",
-    "nodemailer": "^6.1.1",
+    "nodemailer": "^6.4.16",
     "nuxt": "^2.4.0",
     "sass-loader": "^7.1.0",
     "vue-amap": "^0.5.9",
